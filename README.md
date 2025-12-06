@@ -9,7 +9,6 @@ A full-stack multi-tenant application that ingests real-time data from a Shopify
 - [Prerequisites](#-prerequisites)
 - [Installation & Setup](#-installation--setup)
 - [API Endpoints](#-api-endpoints)
-- [Screenshots](#-screenshots)
 
 ---
 
@@ -33,3 +32,78 @@ A full-stack multi-tenant application that ingests real-time data from a Shopify
 
 ## 🏗 Architecture
 1.  **Ingestion:** The Node.js backend fetches data from Shopify (`orders.json`, `customers.json`) using an Admin Access Token.
+2.  **Storage:** Data is mapped to Sequelize models and stored in MySQL tables (`Orders`, `Customers`) with a `shopId` to identify the tenant.
+3.  **Visualization:** The React frontend requests aggregated metrics from the backend (`/api/analytics`) and renders them using Recharts.
+
+---
+
+## ⚙ Prerequisites
+Before running this project, ensure you have the following installed:
+* [Node.js](https://nodejs.org/) (v16 or higher)
+* [MySQL Server](https://dev.mysql.com/downloads/mysql/)
+* A Shopify Development Store (to generate API credentials)
+
+---
+
+## 🚀 Installation & Setup
+
+### 1. Clone the Repository
+```bash
+git clone [https://github.com/niranjan77978/xeno-fde-assignment.git](https://github.com/niranjan77978/xeno-fde-assignment.git)
+cd xeno-fde-assignment
+
+2. Backend Setup
+
+Navigate to the backend folder and install dependencies:
+Bash
+
+cd backend
+npm install
+
+Configure Environment Variables: Create a .env file inside the backend/ folder and add the following:
+Code snippet
+
+PORT=5000
+DB_NAME=xeno_fde
+DB_USER=root
+DB_PASSWORD=your_mysql_password
+DB_HOST=localhost
+dialect=mysql
+
+# Shopify Credentials
+SHOPIFY_ACCESS_TOKEN=shpat_xxxxxxxxxxxxxxxxxxxx
+SHOP_DOMAIN=your-store.myshopify.com
+
+Start the Backend Server: This will automatically sync the database tables.
+Bash
+
+node server.js
+
+Output should say: ✅ Server running on http://localhost:5000
+3. Frontend Setup
+
+Open a new terminal, navigate to the frontend folder, and install dependencies:
+Bash
+
+cd frontend
+npm install
+
+Start the React App:
+Bash
+
+npm run dev
+
+Click the link provided (usually http://localhost:5173) to view the dashboard.
+📡 API Endpoints
+Method	Endpoint	Description
+POST	/api/sync-data	Triggers the ingestion process to fetch data from Shopify.
+GET	/api/analytics/total-sales	Returns aggregated metrics (Total Sales, Orders, Customers).
+
+2. Database Schema (MySQL)
+
+(Place your MySQL Workbench screenshot here)
+👨‍💻 Author
+
+Niranjan Kumar Chaurasiya
+
+    Built for the Xeno Forward Deployed Engineer Internship Assignment.
